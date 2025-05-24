@@ -88,7 +88,7 @@ const impactfulEvents = [
 		effect: { money: 0, respect: 2 },
 	},
 	{
-		text: "A kind bhabi hands you a half-eaten paratha. It’s still warm!",
+		text: "A kind woman hands you a half-eaten paratha. It’s still warm!",
 		effect: { money: 0, respect: 3 },
 	},
 	{
