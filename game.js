@@ -286,7 +286,7 @@ const upgrades = {
 		tier: 1,
 		imageUrl: ["images/dog1_sprite.png", "images/dog2_sprite.png"],
 		storeIconUrl: [
-			"images/dog1.jpg",
+			"images/dog11.jpg",
 			"images/dog2.jpg",
 			"images/dog3.jpg",
 			"images/dog4.jpg",
