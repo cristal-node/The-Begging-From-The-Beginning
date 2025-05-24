@@ -280,7 +280,7 @@ const upgrades = {
 		level: 0,
 		baseCost: 75,
 		power: 1,
-		powerIncrement: 0.15,
+		powerIncrement: 2,
 		type: "idle",
 		requires: 50,
 		tier: 1,
