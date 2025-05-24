@@ -252,18 +252,26 @@ const upgrades = {
 		imageUrl: [
 			"images/Beggar1-sprite.png",
 			"images/beggar2-sprite.png",
-			"images/beggar3-sprite.png",
+			"images/beggar11-sprite.png",
+			"images/beggar4-sprite.png",
+			"images/beggar5-sprite.png",
+			"images/beggar6-sprite.png",
+			"images/beggar7-sprite.png",
+			"images/beggar8-sprite.png",
+			"images/beggar9-sprite.png",
+			"images/beggar10-sprite.png",
 		],
 		storeIconUrl: [
 			"images/beggar1.jpg",
 			"images/beggar2.jpg",
-			"images/beggar3.jpg",
-			"images/beggar4.jpg",
-			"images/beggar5.jpg",
-			"images/beggar6.jpg",
-			"images/beggar7.jpg",
-			"images/beggar8.jpg",
-			"images/beggar9.jpg",
+			"images/beggar11-sprite.png",
+			"images/beggar4-sprite.png",
+			"images/beggar5-sprite.png",
+			"images/beggar6-sprite.png",
+			"images/beggar7-sprite.png",
+			"images/beggar8-sprite.png",
+			"images/beggar9-sprite.png",
+			"images/beggar10-sprite.png",
 		],
 	},
 	sadDog: {
@@ -600,18 +608,30 @@ function buyUpgrade(upgradeName) {
 		alert("Not enough money!");
 	}
 }
-
 function updateVisuals() {
 	if (gameEnded || !visualArea) return;
-	visualArea.innerHTML = "";
+	visualArea.innerHTML = ""; // Clear existing sprites
+
 	for (const key in upgrades) {
 		const upgrade = upgrades[key];
 		if (upgrade.imageUrl && upgrade.level > 0) {
-			for (let i = 0; i < upgrade.level; i++) {
+			let numberOfSpritesToShow = upgrade.level; // Default to showing one sprite per level
+
+			// NEW: Apply caps for specific upgrades
+			if (key === "sadDog") {
+				numberOfSpritesToShow = Math.min(upgrade.level, 2); // Show a maximum of 2 dog sprites
+			} else if (key === "hireCryingChild") {
+				numberOfSpritesToShow = Math.min(upgrade.level, 2); // Show a maximum of 2 child sprites
+			}
+
+			for (let i = 0; i < numberOfSpritesToShow; i++) {
 				const img = document.createElement("img");
 				if (Array.isArray(upgrade.imageUrl)) {
+					// If it's a list, cycle through it based on the sprite instance 'i'
+					// This ensures if you have 2 dog images, the first dog shown is image 0, second is image 1.
 					img.src = upgrade.imageUrl[i % upgrade.imageUrl.length];
 				} else {
+					// If it's a single image path (e.g., for formBeggarGang)
 					img.src = upgrade.imageUrl;
 				}
 				img.alt = upgrade.name;
