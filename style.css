@@ -1,0 +1,285 @@
+body {
+	background-color: #000000;
+	color: #ffffff;
+	overflow-y: auto;
+	user-select: none;
+	-webkit-user-select: none;
+	zoom: 0.8;
+}
+
+#background-clicker {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 0;
+	cursor: pointer;
+	background-color: #000000;
+}
+
+.container {
+	position: relative;
+	z-index: 1;
+	pointer-events: none;
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+/* --- Sprite Collection Bar Styling (Under News Ticker) --- */
+#sprite-collection-bar {
+	/* This is a .card and .card-body in HTML */
+	min-height: 70px;
+	height: auto;
+	background-color: rgba(30, 30, 30, 0.5);
+	border: 1px solid #444;
+	border-radius: var(--bs-card-border-radius); /* Match card style if using Bootstrap 5+ */
+	display: flex;
+	align-items: center; /* Vertically center sprites */
+	flex-direction: row; /* Explicitly row, though default for flex */
+	flex-wrap: wrap; /* Allow sprites to wrap */
+	justify-content: flex-start; /* Align sprites to the left */
+	overflow-x: hidden; /* Prevent horizontal scroll as it wraps */
+	overflow-y: auto; /* Allow vertical scroll if many rows of sprites */
+	max-height: 140px; /* Limit height of the bar itself */
+	gap: 8px;
+	pointer-events: auto;
+}
+
+#sprite-collection-bar img {
+	height: 32px;
+	width: auto;
+	max-width: 45px;
+	filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.7));
+	flex-shrink: 0;
+	background-color: rgba(255, 255, 255, 0.1);
+	padding: 2px;
+	border-radius: 4px;
+	margin-bottom: 5px;
+}
+
+/* --- News Ticker Card - Fixed Height, Internal Scroll --- */
+.news-ticker-card {
+	font-size: 0.9rem;
+	height: 110px;
+	display: flex;
+	flex-direction: column;
+}
+
+#news-ticker {
+	/* This is the card-body */
+	flex-grow: 1;
+	overflow-y: auto;
+	padding-right: 5px;
+	scrollbar-width: thin;
+	scrollbar-color: #555 #1e1e1e;
+}
+#news-ticker div {
+	padding: 4px 8px;
+	border-bottom: 1px solid #333;
+	animation: fadeIn 0.5s ease-in-out;
+}
+#news-ticker div:first-child {
+	color: #ffc107;
+}
+
+/* Card styling */
+.card {
+	background-color: #1e1e1e;
+	border: 1px solid #444;
+	color: #ffffff;
+	pointer-events: auto;
+}
+.card-header {
+	background-color: #333;
+	border-bottom: 1px solid #444;
+}
+
+/* Store Container - Max Height, Internal Scroll */
+#store-container {
+	/* This is the card-body of the store */
+	max-height: 65vh;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: #555 #2a2a2a;
+}
+#store-container::-webkit-scrollbar {
+	width: 8px;
+}
+#store-container::-webkit-scrollbar-track {
+	background: #2a2a2a;
+	border-radius: 4px;
+}
+#store-container::-webkit-scrollbar-thumb {
+	background-color: #555;
+	border-radius: 4px;
+	border: 1px solid #1e1e1e;
+}
+#store-container::-webkit-scrollbar-thumb:hover {
+	background-color: #777;
+}
+
+/* --- Styles for store-icon, player-title, etc. --- */
+.store-icon {
+	width: 64px;
+	height: 64px;
+	margin-right: 20px;
+	vertical-align: middle;
+	border-radius: 8px;
+	border: 1px solid #555;
+}
+#player-title {
+	color: #ffd700;
+	font-weight: 700;
+}
+.upgrade-button {
+	background-color: #2a2a2a;
+	color: #fff;
+	border: 1px solid #555;
+	transition: background-color 0.2s ease;
+	text-align: left;
+}
+.upgrade-button:hover {
+	background-color: #444;
+	border-color: #777;
+}
+.upgrade-button:disabled {
+	cursor: not-allowed;
+	background-color: #1a1a1a;
+	color: #6c757d;
+	border-color: #333;
+	opacity: 0.7;
+}
+.upgrade-button:disabled:hover {
+	background-color: #1a1a1a;
+	border-color: #333;
+}
+.click-feedback {
+	position: absolute;
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #ffd700;
+	text-shadow: 1px 1px 2px #000;
+	pointer-events: none;
+	animation: float-up 1s ease-out forwards;
+	z-index: 9999;
+}
+.click-feedback-empowered {
+	color: #ffeb3b;
+	font-size: 1.8rem;
+	text-shadow: 0 0 5px #fff, 0 0 10px #ffeb3b, 0 0 15px #ffc107;
+}
+@keyframes float-up {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	to {
+		opacity: 0;
+		transform: translateY(-60px);
+	}
+}
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* --- Permanent Status Icons Styling --- */
+#permanent-status-icons {
+	display: flex; /* This makes children align in a row by default */
+	flex-direction: row; /* Explicitly set to row, though it's the default for flex */
+	gap: 10px; /* Space between icons */
+	justify-content: center; /* Center the group of icons if they don't fill the width */
+	flex-wrap: wrap; /* Allow icons to wrap to the next line if too many */
+	background-color: rgba(30, 30, 30, 0.5);
+	border-radius: 5px;
+	border: 1px solid #444;
+	padding: 5px;
+}
+.permanent-upgrade-icon {
+	width: 40px;
+	height: 40px;
+	border: 1px solid #666;
+	border-radius: 5px;
+	background-color: rgba(0, 0, 0, 0.3);
+	padding: 2px;
+}
+
+/* --- End Game Screen Styles & Modal Styles --- */
+.hidden {
+	display: none !important;
+}
+#end-game-screen,
+#to-be-continued-screen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.9);
+	z-index: 10000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	flex-direction: column;
+	animation: fadeIn 1s;
+}
+#to-be-continued-screen h1 {
+	font-size: 5rem;
+	animation: slowZoomIn 10s ease-out forwards;
+}
+@keyframes slowZoomIn {
+	from {
+		opacity: 0;
+		transform: scale(0.8);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1.2);
+	}
+}
+#news-ticker::-webkit-scrollbar {
+	width: 8px;
+}
+#news-ticker::-webkit-scrollbar-track {
+	background: #1e1e1e;
+	border-radius: 4px;
+}
+#news-ticker::-webkit-scrollbar-thumb {
+	background-color: #555;
+	border-radius: 4px;
+	border: 1px solid #2a2a2a;
+}
+#news-ticker::-webkit-scrollbar-thumb:hover {
+	background-color: #777;
+}
+.modal-content {
+	background-color: #2a2a2a;
+	color: #fff;
+	border: 1px solid #555;
+}
+.modal-header {
+	border-bottom: 1px solid #555;
+}
+.modal-footer {
+	border-top: 1px solid #555;
+}
+.modal-header .btn-close {
+	filter: invert(1) grayscale(100%) brightness(200%);
+}
+#statusUpModalLabel {
+	color: #ffd700;
+}
+#modalNewRank {
+	color: #ffc107;
+}

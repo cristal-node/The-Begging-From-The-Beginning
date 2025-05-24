@@ -1,0 +1,121 @@
+<?php
+session_start();
+$gameStateJSON = isset($_SESSION['gameState']) ? json_encode($_SESSION['gameState']) : 'null';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Begging: From the Beginning</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        window.gameStateFromServer = <?php echo $gameStateJSON; ?>;
+    </script>
+</head>
+<body>
+
+<div id="background-clicker"></div>
+
+<div id="end-game-screen" class="hidden">
+    <div class="end-game-content">
+        <h1>The Choice</h1>
+        <p>You have become the most respected figure on the streets. Your influence is absolute. But with it comes a choice...</p>
+        <p>Are you ready to leave this life behind and become a "normal" citizen?</p>
+        <button id="end-game-button" class="btn btn-warning btn-lg">I'm ready for the next chapter.</button>
+    </div>
+</div>
+
+<div id="to-be-continued-screen" class="hidden">
+    <h1>To Be Continued...</h1>
+</div>
+
+<div class="container mt-3 mb-3 main-content-area">
+    <div class="text-center mb-3">
+        <h1 class="display-4 page-title">The Begging: From the Beginning</h1>
+        <p class="lead">How far can you go?</p>
+    </div>
+
+    <div class="row justify-content-center mb-3">
+        <div class="col-lg-10 col-md-12">
+            <div id="sprite-collection-bar" class="card card-body">
+                </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-10 col-md-12">
+            <div class="card news-ticker-card">
+                <div id="news-ticker" class="card-body">
+                    <div>Welcome to the streets! Click anywhere to start begging.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-between">
+        <div class="col-lg-4 col-md-5 mb-3"> 
+            <div class="card mb-3">
+                <div class="card-header fw-bold">Your Status</div>
+                <div id="player-status-panel" class="card-body text-center">
+                    <h5 class="card-title" id="player-title">Street Urchin</h5>
+                    <p class="card-text small" id="player-status-description">You are new to this life.</p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header fw-bold">Your Stats</div>
+                <div class="card-body">
+                    <h4 class="card-title mb-3">💰 <span id="money-display">৳0</span></h4>
+                    <p class="mb-1">Taka per Click: <span id="money-per-click-display" class="fw-bold">1</span></p>
+                    <p class="mb-1">Taka per Second: <span id="money-per-second-display" class="fw-bold">0</span></p>
+                    <p class="mb-0">Street Respect: <span id="respect-display" class="fw-bold">0</span></p>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header fw-bold">Actions</div>
+                <div class="card-body">
+                    <button id="save-button" class="btn btn-info w-100 mb-2">Save Game</button>
+                    <button id="reset-button" class="btn btn-danger w-100">Reset Game</button>
+                </div>
+            </div>
+            <div id="permanent-status-icons" class="p-2 text-center card">
+                </div>
+        </div>
+
+        <div class="col-lg-4 col-md-5 mb-3"> 
+            <div class="card" id="store-card">
+                <div class="card-header fw-bold">The Store</div>
+                <div id="store-container" class="card-body">
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="statusUpModal" tabindex="-1" aria-labelledby="statusUpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="statusUpModalLabel">🎉 Rank Up! 🎉</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                Congratulations! You've achieved a new rank: <br>
+                <strong class="h3" id="modalNewRank">Street Urchin</strong><br>
+                <em id="modalNewRankDescription">You are new to this life.</em>
+                <hr>
+                <p class="fst-italic mt-2" id="modalQuirkyQuip"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Awesome!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="game.js"></script>
+
+</body>
+</html>
