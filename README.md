@@ -77,17 +77,6 @@ To run "The Begging: From the Beginning" on your local machine, you'll need a we
 
     The game should now load and be playable! Your progress will be saved using PHP sessions on your local server.
 
----
-
-## 🎮 How to Play (Briefly)
-
-* Click anywhere on the background to beg for Taka.
-* Use your earned Taka to buy upgrades from "The Store" to increase your earnings per click and per second.
-* Manage your "Street Respect" by performing actions, getting lucky with events, or buying specific upgrades. Higher respect unlocks new upgrade tiers and provides an income bonus.
-* Keep an eye on the "News Ticker" for random events that can help or hinder your progress.
-* Progress through different "Player Status" ranks by gaining Respect.
-* Reach the ultimate status of "Street Legend" to see the game's current ending.
-
 
 ---
 
