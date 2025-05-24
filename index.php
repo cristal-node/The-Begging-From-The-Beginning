@@ -26,7 +26,6 @@ $gameStateJSON = isset($_SESSION['gameState']) ? json_encode($_SESSION['gameStat
         <button id="end-game-button" class="btn btn-warning btn-lg">I'm ready for the next chapter.</button>
     </div>
 </div>
-
 <div id="to-be-continued-screen" class="hidden">
     <h1>To Be Continued...</h1>
 </div>
@@ -36,6 +35,10 @@ $gameStateJSON = isset($_SESSION['gameState']) ? json_encode($_SESSION['gameStat
         <h1 class="display-4 page-title">The Begging: From the Beginning</h1>
         <p class="lead">How far can you go?</p>
     </div>
+
+    <button class="btn btn-outline-light offcanvas-trigger-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#gameActionsOffcanvas" aria-controls="gameActionsOffcanvas">
+        ☰ Menu
+    </button>
 
     <div class="row justify-content-center mb-3">
         <div class="col-lg-10 col-md-12">
@@ -55,7 +58,7 @@ $gameStateJSON = isset($_SESSION['gameState']) ? json_encode($_SESSION['gameStat
     </div>
 
     <div class="row justify-content-between">
-        <div class="col-lg-4 col-md-5 mb-3"> 
+        <div class="col-lg-4 col-md-5 mb-3">
             <div class="card mb-3">
                 <div class="card-header fw-bold">Your Status</div>
                 <div id="player-status-panel" class="card-body text-center">
@@ -72,18 +75,11 @@ $gameStateJSON = isset($_SESSION['gameState']) ? json_encode($_SESSION['gameStat
                     <p class="mb-0">Street Respect: <span id="respect-display" class="fw-bold">0</span></p>
                 </div>
             </div>
-            <div class="card mb-3">
-                <div class="card-header fw-bold">Actions</div>
-                <div class="card-body">
-                    <button id="save-button" class="btn btn-info w-100 mb-2">Save Game</button>
-                    <button id="reset-button" class="btn btn-danger w-100">Reset Game</button>
-                </div>
-            </div>
             <div id="permanent-status-icons" class="p-2 text-center card">
                 </div>
-        </div>
+            </div>
 
-        <div class="col-lg-4 col-md-5 mb-3"> 
+        <div class="col-lg-5 col-md-6 mb-3">
             <div class="card" id="store-card">
                 <div class="card-header fw-bold">The Store</div>
                 <div id="store-container" class="card-body">
@@ -112,6 +108,20 @@ $gameStateJSON = isset($_SESSION['gameState']) ? json_encode($_SESSION['gameStat
             </div>
         </div>
     </div>
+</div>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="gameActionsOffcanvas" aria-labelledby="gameActionsOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="gameActionsOffcanvasLabel">Game Actions</h5>
+    <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <p>Manage your game or take a break.</p>
+    <button id="save-button" class="btn btn-info w-100 mb-3">Save Game</button>
+    <button id="reset-button" class="btn btn-danger w-100 mb-3">Reset Game</button>
+    <hr>
+    <small class="d-block text-center text-muted mt-3">The Begging: From the Beginning</small>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

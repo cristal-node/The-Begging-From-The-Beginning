@@ -4,7 +4,6 @@ body {
 	overflow-y: auto;
 	user-select: none;
 	-webkit-user-select: none;
-	zoom: 0.8;
 }
 
 #background-clicker {
@@ -29,30 +28,45 @@ body {
 	padding-bottom: 15px;
 }
 
-/* --- Sprite Collection Bar Styling (Under News Ticker) --- */
+/* --- Offcanvas Trigger Button Styling --- */
+.offcanvas-trigger-btn {
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	z-index: 1045; /* High enough to be above most page content, but Bootstrap modals are higher (1050+) */
+	color: #fff;
+	border-color: #fff;
+	pointer-events: auto !important; /* CRITICAL: Ensure this button is always clickable */
+}
+.offcanvas-trigger-btn:hover {
+	color: #000;
+	background-color: #fff;
+}
+
+/* Sprite Collection Bar, News Ticker, Card, Store Container etc. styles remain as per your last fully working version */
 #sprite-collection-bar {
-	/* This is a .card and .card-body in HTML */
 	min-height: 70px;
 	height: auto;
 	background-color: rgba(30, 30, 30, 0.5);
 	border: 1px solid #444;
-	border-radius: var(--bs-card-border-radius); /* Match card style if using Bootstrap 5+ */
+	border-radius: var(--bs-card-border-radius);
 	display: flex;
-	align-items: center; /* Vertically center sprites */
-	flex-direction: row; /* Explicitly row, though default for flex */
-	flex-wrap: wrap; /* Allow sprites to wrap */
-	justify-content: flex-start; /* Align sprites to the left */
-	overflow-x: hidden; /* Prevent horizontal scroll as it wraps */
-	overflow-y: auto; /* Allow vertical scroll if many rows of sprites */
-	max-height: 140px; /* Limit height of the bar itself */
+	align-items: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	overflow-x: auto;
+	overflow-y: hidden;
 	gap: 8px;
 	pointer-events: auto;
 }
-
+#sprite-collection-bar.card-body {
+	padding: 10px;
+}
 #sprite-collection-bar img {
-	height: 32px;
+	height: 40px;
 	width: auto;
-	max-width: 45px;
+	max-width: 55px;
 	filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.7));
 	flex-shrink: 0;
 	background-color: rgba(255, 255, 255, 0.1);
@@ -60,17 +74,13 @@ body {
 	border-radius: 4px;
 	margin-bottom: 5px;
 }
-
-/* --- News Ticker Card - Fixed Height, Internal Scroll --- */
 .news-ticker-card {
 	font-size: 0.9rem;
 	height: 110px;
 	display: flex;
 	flex-direction: column;
 }
-
 #news-ticker {
-	/* This is the card-body */
 	flex-grow: 1;
 	overflow-y: auto;
 	padding-right: 5px;
@@ -85,22 +95,17 @@ body {
 #news-ticker div:first-child {
 	color: #ffc107;
 }
-
-/* Card styling */
 .card {
 	background-color: #1e1e1e;
 	border: 1px solid #444;
-	color: #ffffff;
+	color: #fff;
 	pointer-events: auto;
 }
 .card-header {
 	background-color: #333;
 	border-bottom: 1px solid #444;
 }
-
-/* Store Container - Max Height, Internal Scroll */
 #store-container {
-	/* This is the card-body of the store */
 	max-height: 65vh;
 	overflow-y: auto;
 	scrollbar-width: thin;
@@ -121,8 +126,6 @@ body {
 #store-container::-webkit-scrollbar-thumb:hover {
 	background-color: #777;
 }
-
-/* --- Styles for store-icon, player-title, etc. --- */
 .store-icon {
 	width: 64px;
 	height: 64px;
@@ -192,14 +195,12 @@ body {
 		transform: translateY(0);
 	}
 }
-
-/* --- Permanent Status Icons Styling --- */
 #permanent-status-icons {
-	display: flex; /* This makes children align in a row by default */
-	flex-direction: row; /* Explicitly set to row, though it's the default for flex */
-	gap: 10px; /* Space between icons */
-	justify-content: center; /* Center the group of icons if they don't fill the width */
-	flex-wrap: wrap; /* Allow icons to wrap to the next line if too many */
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	justify-content: center;
+	flex-wrap: wrap;
 	background-color: rgba(30, 30, 30, 0.5);
 	border-radius: 5px;
 	border: 1px solid #444;
@@ -213,8 +214,6 @@ body {
 	background-color: rgba(0, 0, 0, 0.3);
 	padding: 2px;
 }
-
-/* --- End Game Screen Styles & Modal Styles --- */
 .hidden {
 	display: none !important;
 }
@@ -262,6 +261,17 @@ body {
 }
 #news-ticker::-webkit-scrollbar-thumb:hover {
 	background-color: #777;
+}
+.offcanvas {
+	background-color: #1e1e1e;
+	color: #fff;
+	border-left: 1px solid #444;
+}
+.offcanvas-header {
+	border-bottom: 1px solid #444;
+}
+.offcanvas-title {
+	color: #ffd700;
 }
 .modal-content {
 	background-color: #2a2a2a;

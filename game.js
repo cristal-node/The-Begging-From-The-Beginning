@@ -444,10 +444,18 @@ const upgrades = {
 };
 
 const statusQuips = {
-	"Street Urchin": "Every taka counts when you're starting out!",
-	"Known Face": "Heads are turning... or maybe they're just avoiding eye contact faster.",
-	"Local Hero": "You're like a local Robin Hood, but you keep the parathas.",
-	"Saint of the Streets": "Your generosity is legendary! Even the pigeons look up to you.",
+	"Street Urchin": "Every taka counts when you're just a speck in the city's dust.",
+	"Corner Regular": "You've found your spot! The local dogs are starting to ignore you. Progress!",
+	"Known Face":
+		"Heads are turning... or maybe they're just avoiding eye contact with practiced speed.",
+	"Alleyway Advisor": "Folks now ask you for directions... mostly to other, better begging spots.",
+	"Local Hero": "You're like a local Robin Hood, except you keep the parathas. And the money.",
+	"Street Sage": "Younger beggars occasionally offer you stale bread. Out of respect... or pity?",
+	"Saint of the Streets": "Your generosity is legendary! Even the pigeons seem to bow before you.",
+	"Moholla Matobbor":
+		"Small-time disputes are now brought to *you* before the police. Cheaper, and the street tea is better.", // NEW
+	"Shadow Mayor":
+		"Local politicians now send 'gifts' hoping for your 'blessing' on their projects.", // NEW (Changed from "of the Slums" for broader appeal)
 	"👑 Street Legend 👑":
 		"You don't walk the streets; the streets roll out a red (if slightly dirty) carpet for you.",
 };
@@ -533,46 +541,83 @@ function updatePlayerStatus() {
 	if (gameEnded) return;
 	let oldTier = maxUnlockedPlayerTier;
 	let oldPlayerTitle = playerTitle.textContent;
+
 	let newTitle = "Street Urchin";
 	let newDescription = "Just trying to survive another day.";
 	let newTier = 1;
-	if (respect >= 5000) {
+
+	// Adjusted Respect Thresholds for new titles & ~30 min game
+	if (respect >= 7500) {
+		// End game
 		newTitle = "👑 Street Legend 👑";
 		newDescription = "The city whispers your name. A choice awaits.";
 		newTier = 5;
+	} else if (respect >= 5500) {
+		// NEW Threshold for Shadow Mayor
+		newTitle = "Shadow Mayor";
+		newDescription = "Your influence is undeniable; you shape the daily life of the streets.";
+		newTier = 4; // Stays in Tier 4 unlock range
+	} else if (respect >= 3500) {
+		// NEW Threshold for Moholla Matobbor
+		newTitle = "Moholla Matobbor";
+		newDescription = "Your word carries weight in the local alleys and markets.";
+		newTier = 4; // Stays in Tier 4 unlock range (or unlocks Tier 4 if Saint was T3)
 	} else if (respect >= 2000) {
 		newTitle = "Saint of the Streets";
 		newDescription = "Your generosity is known far and wide.";
-		newTier = 4;
+		newTier = 4; // This is the primary Tier 4 unlock trigger
+	} else if (respect >= 1200) {
+		newTitle = "Street Sage";
+		newDescription = "Your wisdom (and collection techniques) are noteworthy.";
+		newTier = 3;
 	} else if (respect >= 500) {
 		newTitle = "Local Hero";
 		newDescription = "You have earned the people's admiration.";
-		newTier = 3;
+		newTier = 3; // This is the primary Tier 3 unlock trigger
+	} else if (respect >= 250) {
+		newTitle = "Alleyway Advisor";
+		newDescription = "People seek your... unique perspective on street life.";
+		newTier = 2;
 	} else if (respect >= 100) {
 		newTitle = "Known Face";
-		newDescription = "People recognize you and offer nods.";
-		newTier = 2;
+		newDescription = "People recognize you and offer nods... or quickly walk away.";
+		newTier = 2; // This is the primary Tier 2 unlock trigger
+	} else if (respect >= 40) {
+		newTitle = "Corner Regular";
+		newDescription = "You've claimed a spot. It's not much, but it's yours.";
+		newTier = 1;
 	}
+	// Default is "Street Urchin" if below 40 respect, tier 1
+
 	playerTitle.textContent = newTitle;
 	playerStatusDescription.textContent = newDescription;
-	maxUnlockedPlayerTier = newTier;
+
+	// Only update maxUnlockedPlayerTier if the newTier is greater
+	// This ensures tier unlocks are tied to the more significant status jumps
+	if (newTier > maxUnlockedPlayerTier) {
+		maxUnlockedPlayerTier = newTier;
+	}
+
 	if (newTitle !== oldPlayerTitle) {
 		logEvent({
 			text: `Your reputation grows! You are now known as: <b>${newTitle}</b>`,
 			effect: { money: 0, respect: 0 },
 		});
+
 		if (statusUpModalElement && bootstrap.Modal) {
-			// Check bootstrap is loaded
 			if (!statusModalInstance) {
 				statusModalInstance = new bootstrap.Modal(statusUpModalElement);
 			}
 			if (statusUpModalBodyNewRank) statusUpModalBodyNewRank.textContent = newTitle;
-			if (statusUpModalBodyDescription) statusUpModalBodyDescription.innerHTML = newDescription;
+			if (statusUpModalBodyDescription) statusUpModalBodyDescription.innerHTML = newDescription; // Use innerHTML if desc has HTML
 			if (statusUpModalQuirkyQuip)
-				statusUpModalQuirkyQuip.textContent = statusQuips[newTitle] || "Keep up the hustle!";
+				statusUpModalQuirkyQuip.textContent =
+					statusQuips[newTitle] || "The streets are tough, but so are you!";
 			statusModalInstance.show();
 		}
+
 		if (maxUnlockedPlayerTier > oldTier) {
+			// This check is fine
 			logEvent({
 				text: `Your influence reveals new opportunities! (Tier ${maxUnlockedPlayerTier} upgrades may be available)`,
 				effect: { money: 0, respect: 0 },
