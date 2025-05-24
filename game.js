@@ -439,7 +439,7 @@ const upgrades = {
 		requires: 10000,
 		tier: 4,
 		storeIconUrl: "images/donation.jpg",
-		statusIconUrl: "images/donation.png",
+		statusIconUrl: "images/donation.jpg",
 	},
 };
 
