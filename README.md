@@ -1,7 +1,7 @@
 # The Begging: From the Beginning
 
 ![](https://github.com/shoytanbaba99/The-Begging-From-The-Beginning/blob/e5e4daa662f01e08c8ffc2e01e90425e2ba0dbf5/Images/image.png)
-*(Suggestion: Take a nice screenshot of your game in action and include it here. Upload the image to your repository and link to it.)*
+
 
 A PHP & JavaScript based idle clicker game simulating a journey of a "Beggar" in a city environment inspired by Dhaka.
 
