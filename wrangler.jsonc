@@ -5,7 +5,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "begging",
-	"main": "src/welcome.js",
+	"main": "src/main.js",
 	"compatibility_date": "2025-05-29",
 	"compatibility_flags": [
 		"nodejs_compat",
