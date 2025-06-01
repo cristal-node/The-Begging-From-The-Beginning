@@ -3,7 +3,7 @@
  * https://developers.cloudflare.com/workers/wrangler/configuration/
  */
 {
-	"$schema": "node_modules/wrangler/config-schema.json",
+	"${DOLLAR}schema": "node_modules/wrangler/config-schema.json",
 	"name": "begging",
 	"main": "src/main.js",
 	"compatibility_date": "2025-05-29",
@@ -16,16 +16,15 @@
 	},
 	"observability": {
 		"enabled": true
-	}
+	},
 
-	/*
   "kv_namespaces": [
 	  {
 	    "binding": "KV",
-	    "id": "<YOUR_BINDING_ID>"
+	    "id": "${KV_NAMESPACE}"
 	  }
 	]
- */
+
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
