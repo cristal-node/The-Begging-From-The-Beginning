@@ -963,16 +963,14 @@ resetButton.addEventListener("click", () => {
 	}
 });
 async function loadGame() {
-	let savedState = null;
-	if(document.cookie.match(/__uid=([^;]+)/))
-		savedState = await fetch("state").then(r => r.json());
-	money = savedState?.money ?? 0;
-	respect = savedState?.respect ?? 0;
-	maxUnlockedPlayerTier = savedState?.maxUnlockedPlayerTier ??
+	const savedState = await fetch("state").then(r => r.json()) ?? {};
+	money = savedState.money ?? 0;
+	respect = savedState.respect ?? 0;
+	maxUnlockedPlayerTier = savedState.maxUnlockedPlayerTier ??
 		respect >= 2000 ? 4 :
 		respect >= 500 ? 3 :
 		respect >= 100 ? 2 : 1;
-	if (savedState?.upgrades)
+	if (savedState.upgrades)
 		for (const key in savedState.upgrades) {
 			if (upgrades[key]) {
 				upgrades[key].level = savedState.upgrades[key].level;
@@ -980,6 +978,8 @@ async function loadGame() {
 		}
 }
 window.onload = async () => {
+	if(!document.cookie.match(/__uid=([^;]+)/))
+		document.location = "/login";
 	await loadGame();
 	if (statusUpModalElement && typeof bootstrap !== "undefined") {
 		// Check bootstrap is defined
