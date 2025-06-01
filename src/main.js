@@ -21,11 +21,11 @@ function cookie(headers, key) {
   return null;
 }
 
-function state(request) {
+async function state(request) {
   return new Response((await env.KV.get(uid)) ?? JSON.stringify({}));
 }
 
-function save(request, env) {
+async function save(request, env) {
     if (request.method !== "POST") return err_res();
     await request.json().then(v => env.KV.put(uid, JSON.stringify(v)));
     return success_res();
@@ -35,8 +35,8 @@ export default {
   async fetch(request, env, ctx) {
     if (!cookie(request.headers, "__uid")) return login();
     const path = (new URL(request.url)).pathname;
-    if (path === "/save") return save(request, env);
-    else if (path === "/state") return state(request, env);
+    if (path === "/save") return await save(request, env);
+    else if (path === "/state") return await state(request, env);
     else return login();  
   },
 };
