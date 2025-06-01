@@ -9,7 +9,7 @@ const err_res = () => new Response(JSON.stringify({
 const login = () => new Response("", {
   status: 302,
   headers: {
-    "Set-Cookie": `__uid=${crypto.randomUUID()}; HttpOnly; Max-Age=604800; Path=/; Secure; SameSite=Strict`,
+    "Set-Cookie": `__uid=${crypto.randomUUID()}; Max-Age=604800; Path=/; Secure; SameSite=Strict`,
     Location: "/welcome.html",
   }
 })
