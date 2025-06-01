@@ -939,7 +939,7 @@ async function saveGame() {
 	};
 	for (const key in upgrades) gameState.upgrades[key] = { level: upgrades[key].level };
 	try {
-		const response = await fetch("save.php", {
+		const response = await fetch("save", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(gameState),
@@ -958,31 +958,29 @@ async function saveGame() {
 saveButton.addEventListener("click", saveGame);
 resetButton.addEventListener("click", () => {
 	if (confirm("Are you sure you want to reset your game? All progress will be lost permanently.")) {
-		window.location.href = "reset.php";
+		document.cookie = "__uid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+		window.location.reload();
 	}
 });
-function loadGame() {
-	const savedState = window.gameStateFromServer;
-	if (savedState) {
-		money = savedState.money || 0;
-		respect = savedState.respect || 0;
-		if (typeof savedState.maxUnlockedPlayerTier !== "undefined") {
-			maxUnlockedPlayerTier = savedState.maxUnlockedPlayerTier;
-		} else {
-			if (respect >= 2000) maxUnlockedPlayerTier = 4;
-			else if (respect >= 500) maxUnlockedPlayerTier = 3;
-			else if (respect >= 100) maxUnlockedPlayerTier = 2;
-			else maxUnlockedPlayerTier = 1;
-		}
+async function loadGame() {
+	let savedState = null;
+	if(document.cookie.match(/__uid=([^;]+)/))
+		savedState = await fetch("state").then(r => r.json());
+	money = savedState?.money ?? 0;
+	respect = savedState?.respect ?? 0;
+	maxUnlockedPlayerTier = savedState?.maxUnlockedPlayerTier ??
+		respect >= 2000 ? 4 :
+		respect >= 500 ? 3 :
+		respect >= 100 ? 2 : 1;
+	if (savedState?.upgrades)
 		for (const key in savedState.upgrades) {
 			if (upgrades[key]) {
 				upgrades[key].level = savedState.upgrades[key].level;
 			}
 		}
-	}
 }
-window.onload = () => {
-	loadGame();
+window.onload = async () => {
+	await loadGame();
 	if (statusUpModalElement && typeof bootstrap !== "undefined") {
 		// Check bootstrap is defined
 		statusModalInstance = new bootstrap.Modal(statusUpModalElement);
